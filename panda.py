@@ -1,9 +1,9 @@
+# import pymongo to data driven from collection hotel
 import pymongo
 import pandas
-
 from pymongo import MongoClient, errors
 
-
+# database connection 
 def database_conn():
     try:
         conn = MongoClient()
@@ -13,7 +13,7 @@ def database_conn():
     except pymongo.errors.ConnectionFailure, e:
         print "Could not connect to server: %s" % e
 
-
+# db_first_search function search single document
 def db_first_search(_coll, search_data=None):
     if search_data is None:
         search_data = {}
@@ -24,7 +24,7 @@ def db_first_search(_coll, search_data=None):
     except pymongo.errors.PyMongoError as e:
         print "given data is invalid:%s" % e
 
-
+# db_search_all collect many document in db
 def db_search_all(_coll, data=None):
     if data is None:
         data = {}
@@ -46,6 +46,6 @@ if __name__ == "__main__":
     conn = database_conn()
 
     coll_list = db_search_all(conn[0])
-
+# written csv file
     brics = pandas.DataFrame(coll_list)
     brics.to_csv('mon.csv')
