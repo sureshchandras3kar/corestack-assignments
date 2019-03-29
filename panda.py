@@ -49,3 +49,4 @@ if __name__ == "__main__":
 # written csv file
     brics = pandas.DataFrame(coll_list)
     brics.to_csv('mon.csv')
+    
