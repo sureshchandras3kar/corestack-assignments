@@ -19,13 +19,11 @@
 5. WRITE A MONGODB QUERY TO DISPLAY ALL THE RESTAURANT WHICH IS IN THE BOROUGH BRONX.
 
 	query: db.hotel.find( {borough:"Bronx"} ).pretty()
-		OR
-	query:db.getCollection('hotel').aggregate([{$match:{ "borough" :"Bronx"}}])
 
 6. WRITE A MONGODB QUERY TO DISPLAY THE FIRST 5 RESTAURANT WHICH IS IN THE BOROUGH BRONX. 
 
 	query: db.hotel.find( {borough:"Bronx"}).limit(5).pretty()
-		
+
 7.WRITE A MONGODB QUERY TO DISPLAY THE NEXT 5 RESTAURANTS AFTER SKIPPING FIRST 5 WHICH ARE IN THE BOROUGH BRONX. 
 
 	query: db.hotel.find( {borough:"Bronx"}).skip(5).pretty()
@@ -42,8 +40,10 @@
 
 	query: db.hotel.find({"address.coord":{$elemMatch:{$lt:-95.754168}}},{name:1,"address.coord":1}).pretty()
 
-11. Write a MongoDB query to find the restaurants that do not prepare any cuisine of 'American' and their grade score more than 70 and latitude less than -65.754168. 
-	query: db.hotel.aggregate()
+13. Write a MongoDB query to find the restaurants which do not prepare any cuisine of 'American ' and achieved a grade point 'A' not belongs to the borough Brooklyn. The document must be displayed according to the cuisine in descending order.
+
+	query: db.hotel.find({})
+
 
 
 14.WRITE A MONGODB QUERY TO FIND THE RESTAURANT ID, NAME, BOROUGH AND CUISINE FOR THOSE RESTAURANTS WHICH CONTAIN 'WIL' AS FIRST THREE LETTERS FOR ITS NAME.
