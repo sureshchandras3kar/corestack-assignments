@@ -1,0 +1,146 @@
+
+
+1. WRITE A MONGODB QUERY TO DISPLAY ALL THE DOCUMENTS IN THE COLLECTION RESTAURANTS.
+
+	query :db.hotel.find().pretty()
+
+2. WRITE A MONGODB QUERY TO DISPLAY THE FIELDS RESTAURANT_ID, NAME, BOROUGH AND CUISINE FOR ALL THE DOCUMENTS IN THE COLLECTION RESTAURANT.
+
+	query: db.hotel.find({},{restaurant_id:1,name:1,borough:1,cuisine:1}).pretty()
+
+3. WRITE A MONGODB QUERY TO DISPLAY THE FIELDS RESTAURANT_ID, NAME, BOROUGH AND CUISINE, BUT EXCLUDE THE FIELD _ID FOR ALL THE DOCUMENTS IN THE COLLECTION RESTAURANT.
+
+	query: db.hotel.find({},{_id:0,restaurant_id:1,name:1,borough:1,cuisine:1}).pretty()
+
+4. WRITE A MONGODB QUERY TO DISPLAY THE FIELDS RESTAURANT_ID, NAME, BOROUGH AND ZIP CODE, BUT EXCLUDE THE FIELD _ID FOR ALL THE DOCUMENTS IN THE COLLECTION RESTAURANT.
+
+	query: db.hotel.find({},{_id:0,restaurant_id:1,name:1,borough:1,cuisine:1,"address.zipcode":1}).pretty()
+
+5. WRITE A MONGODB QUERY TO DISPLAY ALL THE RESTAURANT WHICH IS IN THE BOROUGH BRONX.
+
+	query: db.hotel.find( {borough:"Bronx"} ).pretty()
+		OR
+	query:db.getCollection('hotel').aggregate([{$match:{ "borough" :"Bronx"}}])
+
+6. WRITE A MONGODB QUERY TO DISPLAY THE FIRST 5 RESTAURANT WHICH IS IN THE BOROUGH BRONX. 
+
+	query: db.hotel.find( {borough:"Bronx"}).limit(5).pretty()
+		
+7.WRITE A MONGODB QUERY TO DISPLAY THE NEXT 5 RESTAURANTS AFTER SKIPPING FIRST 5 WHICH ARE IN THE BOROUGH BRONX. 
+
+	query: db.hotel.find( {borough:"Bronx"}).skip(5).pretty()
+
+8. WRITE A MONGODB QUERY TO FIND THE RESTAURANTS WHO ACHIEVED A SCORE MORE THAN 90.
+
+	query:db.hotel.find({grades : { $elemMatch:{"score":{$gt : 90}}}}).pretty()
+
+9.Write a MongoDB query to find the restaurants that achieved a score, more than 80 but less than 100
+
+	query:db.hotel.find({grades : { $elemMatch:{"score":{$gt : 80,$lt:100}}}}).pretty()
+
+10.Write a MongoDB query to find the restaurants which locate in latitude value less than -95.754168
+
+	query: db.hotel.find({"address.coord":{$elemMatch:{$lt:-95.754168}}},{name:1,"address.coord":1}).pretty()
+
+11. Write a MongoDB query to find the restaurants that do not prepare any cuisine of 'American' and their grade score more than 70 and latitude less than -65.754168. 
+	query: db.hotel.aggregate()
+
+
+14.WRITE A MONGODB QUERY TO FIND THE RESTAURANT ID, NAME, BOROUGH AND CUISINE FOR THOSE RESTAURANTS WHICH CONTAIN 'WIL' AS FIRST THREE LETTERS FOR ITS NAME.
+	query: db.hotel.find( {name: /^Wil/}, {name:1,borough:1,cuisine:1,restaurant_id} ).pretty()
+
+15.WRITE A MONGODB QUERY TO FIND THE RESTAURANT ID, NAME, BOROUGH AND CUISINE FOR THOSE RESTAURANTS WHICH CONTAIN 'CES' AS LAST THREE LETTERS FOR ITS NAME
+
+	query: db.hotel.find( {name: /ces$/}, { } ).pretty()
+
+16. WRITE A MONGODB QUERY TO FIND THE RESTAURANT ID, NAME, BOROUGH AND CUISINE FOR THOSE RESTAURANTS WHICH CONTAIN 'REG' AS THREE LETTERS SOMEWHERE IN ITS NAME.
+	
+	query: db.hotel.find( {name: /.*Reg.*/}, { "restaurant_id" : 1, "name":1,"borough":1, "cuisine" :1 } ).pretty()
+
+17. WRITE A MONGODB QUERY TO FIND THE RESTAURANTS WHICH BELONG TO THE BOROUGH BRONX AND PREPARED EITHER AMERICAN OR CHINESE DISH. 
+
+	query: db.hotel.find({borough:"Bronx",cuisine:{$in:["American","Chinese"]}},{name:1,borough:1,cuisine:1,_id:0}).pretty()
+
+18. WRITE A MONGODB QUERY TO FIND THE RESTAURANT ID, NAME, BOROUGH AND CUISINE FOR THOSE RESTAURANTS WHICH BELONG TO THE BOROUGH STATEN ISLAND OR QUEENS OR BRONXOR BROOKLYN
+
+	query: db.hotel.find({borough:{$in:["Stataten Island","Queens","Bronxor Brooklyn"]}},{restaurant_id:1,name:1,borough:1,cuisine:1,_id:0}).pretty()
+
+19. WRITE A MONGODB QUERY TO FIND THE RESTAURANT ID, NAME, BOROUGH AND CUISINE FOR THOSE RESTAURANTS WHICH ARE NOT BELONGING TO THE BOROUGH STATEN ISLAND OR QUEENS OR BRONXOR BROOKLYN. 
+
+       query: db.hotel.find({"borough":{$nin:["Staten Island","Queens","Brooklyn"]}},{restaurant_id:1,name:1,borough:1,cuisine:1,_id:0}).pretty()
+
+20. WRITE A MONGODB QUERY TO FIND THE RESTAURANT ID, NAME, BOROUGH AND CUISINE FOR THOSE RESTAURANTS WHICH ACHIEVED A SCORE WHICH IS NOT MORE THAN 10
+
+	query: db.hotel.find({grades : { $elemMatch:{"score":{$lte : 10}}}},{_id:0,address:0,grades:0}).pretty()
+
+21.WRITE A MONGODB QUERY TO FIND THE RESTAURANT ID, NAME, BOROUGH AND CUISINE FOR THOSE RESTAURANTS WHICH PREPARED DISH EXCEPT 'AMERICAN' AND 'CHINEES' OR RESTAURANT'S NAME BEGINS WITH LETTER.
+	
+	query: db.hotel.find({cuisine:{$nin:["American","Chinese"]},name: /^Wil/}, {restaurant_id:1,name:1,borough:1,cuisine:1} ).pretty()
+
+
+24. Write a MongoDB query to find the restaurant Id, name, address and geographical location for those restaurants where 2nd element of coord array contains a value which is more than 42 and upto 52.
+
+	query: db.hotel.find({"address.coord":{$elemMatch:{$gt:42,$lt:52}}},{name:1,"address.coord":1,restaurant_id:1}).pretty()
+
+
+25. Write a MongoDB query to arrange the name of the restaurants in ascending order along with all the columns.
+
+	query: db.hotel.find({}).sort({"name": 1})
+
+26. Write a MongoDB query to arrange the name of the restaurants in descending along with all the columns.
+
+	query: db.hotel.find({}).sort({"name": -1})
+
+
+28. Write a MongoDB query to know whether all the addresses contains the street or not.
+
+
+	query:db.hotel.find( { "address.street" :{ $exists:false }}).pretty()
+
+
+31. Write a MongoDB query to find the restaurant name, borough, longitude and attitude and cuisine for those restaurants which contains 'mon' as three letters somewhere in its name.
+
+	query:db.hotel.find( {name: /.*man.*/}, { restaurant_id: 1, name:1,borough:1, cuisine:1 ,"address.coord":1} ).pretty()
+
+32. Write a MongoDB query to find the restaurant name, borough, longitude and latitude and cuisine for those restaurants which contain 'Mad' as first three letters of its name. 
+
+
+	query:db.hotel.find( {name: /^Wil/}, { "restaurant_id" : 1, "name":1,"borough":1, "cuisine" :1 ,"address.coord":1} ).pretty()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
